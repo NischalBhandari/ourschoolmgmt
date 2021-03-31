@@ -52,6 +52,13 @@ class Student
      */
     private $phone;
 
+     /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -140,4 +147,19 @@ class Student
 
         return $this;
     }
+
+        /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+
 }
