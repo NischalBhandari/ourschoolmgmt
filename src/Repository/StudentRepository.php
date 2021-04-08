@@ -18,6 +18,20 @@ class StudentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Student::class);
     }
+    public function findAllWithName(string $name): array
+    {
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT s
+            FROM App\Entity\Student s
+            WHERE s.name LIKE :myname or 
+            WHERE s.parent LIKE :myname
+            ORDER BY s.phone ASC'
+        )->setParameter('myname', '%'.$name.'%');
+
+       return $query->getResult();
+
+}
 
     // /**
     //  * @return Student[] Returns an array of Student objects

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %} 
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-light mb-3 mt-3">
+        <div class="card-body">
+          <div class="card-header">List of Teachers</div>
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+          <table class="table">
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+            {% for key, item in teacher %}
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.phone }}</td>
+               <td><a class="nav-link" href="{{path('delteacher',{id:item.id}) }}">Delete</a></td>
+{#              <td><a class="nav-link" href="{{path('editteacher',{id:item.id}) }}">Edit</a></td> #}
+            </tr>
+            {% endfor %}
+          </table>
+          {% else %}
+        </div>
+      </div>
+      <div>
+      <span>You need to be logged in for this content</span>
+      </div>
+      <a href="{{ path('app_login') }}" class="btn btn-primary">
+         Sign In >></a
+      >
+
+       {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

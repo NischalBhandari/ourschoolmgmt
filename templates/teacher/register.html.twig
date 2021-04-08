@@ -1,13 +1,11 @@
 {# templates/registration/index.html.twig #} {% extends 'base.html.twig' %} {%
 block body %}
-<div class="container content">
+<div class="container">
   <div class="row">
-    
-    <div class="col-md-12">
-      <div class="card bg-light mb-3 mt-3">
+    <div class="col-md-10 ml-md-auto">
+      <div class="card bg-light mb-3 mt-5" style="width: 800px">
         <div class="card-body">
           <div class="card-header mb-3">Add New Student</div>
-          {% if is_granted('ROLE_ADMIN') %}
           {{ form_start(form) }}
           <div class="form_group">
             <div class="col-md-12 mb-3">
@@ -21,37 +19,13 @@ block body %}
           </div>
           <div class="form_group">
             <div class="col-md-12 mb-3">
-              {{ form_row(form.class, {'attr': {'class':
+              {{ form_row(form.Phone, {'attr': {'class':
               'form-control'}}) }}
             </div>
           </div>
           <div class="form_group">
             <div class="col-md-12 mb-3">
-              {{ form_row(form.section, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
-              {{ form_row(form.classteacher, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
-              {{ form_row(form.admission_date, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
-              {{ form_row(form.parent, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
-              {{ form_row(form.phone, {'attr': {'class':
+              {{ form_row(form.address, {'attr': {'class':
               'form-control'}}) }}
             </div>
           </div>
@@ -76,21 +50,8 @@ block body %}
           </div>
           {{ form_end(form) }}
         </div>
-         {% else %}
-
       </div>
-
     </div>
-                          <div>
-      <span>You need to be logged in as Admin for this</span>
-      </div>
-      <a href="{{ path('app_login') }}" class="btn btn-primary">
-         Sign In </a
-      >
-
-       {% endif %}
   </div>
-  </div>
-
 </div>
 {% endblock %}

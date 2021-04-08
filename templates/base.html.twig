@@ -8,34 +8,34 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href={{ asset('css/styles.css') }} 
+    />
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     {% block stylesheets %}{% endblock %}
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-light"
-      style="height: 70px;"
-    >
-      <a class="navbar-brand" href="#">School Management System</a>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
-      <ul class="nav navbar-nav navbar-right">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <li><a class="nav-link" href="{{ path('list') }}">View List</a></li>
-        <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
-        <li><a class="nav-link" href="{{path('newstudent') }}">Add New</a></li>
-
-        {% else %}
-        
-        <li><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
-        <li>
-          <a class="nav-link" href="{{ path('registration') }}">Register</a>
-        </li>
-    {% endif %}
-
+ {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+<div class="sidebar">
  
+<ul id="mubar">
 
+{# Here app.request.attributes.get('_route') is from twig #}
+ <li class="{% if app.request.attributes.get('_route') == 'dashboard' %} active{% endif %}"> <a  href="{{ path('dashboard') }}">Home</a></li>
+ <li class="{% if app.request.attributes.get('_route') == 'liststudent' %} active{% endif %}" > <a  href="{{ path('liststudent') }}">Students</a></li>
+ <li class="{% if app.request.attributes.get('_route') == 'newstudent' %} active{% endif %}" > <a  href="{{ path('newstudent') }}">Add New Student</a></li>
+  <li class="{% if app.request.attributes.get('_route') == 'staff' %} active{% endif %}" ><a  href="{{ path('staff') }}">Staff</a></li>
+  <li class="{% if app.request.attributes.get('_route') == 'newstaff' %} active{% endif %}" ><a  href="{{ path('newstaff') }}">Add New Staff</a></li>
+  <li class="{% if app.request.attributes.get('_route') == 'app_logout' %} active{% endif %}" ><a  href="{{ path('app_logout') }}">Logout</a></li>
+</ul>
 
-      </ul>
-    </nav>
+</div>
+{% endif %}
+
     {% block body %}{% endblock %} {% block javascripts %}{% endblock %}
+
   </body>
+   <script src={{ asset('js/script.js')}}></script>
 </html>

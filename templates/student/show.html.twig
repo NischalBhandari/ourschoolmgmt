@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %} 
+{% block body %}
+<div class="container content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card bg-gradient-info bg-info text-white mb-3 mt-3">
+        <div class="card-body ">
+          <div class="card-header h3 ">{{student.name}}</div>
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <ul class="profile left">
+            <li> class : {{ student.class }}</li>
+            <li> section : {{ student.section }}</li>
+            <li class ="bold"> Email: {{ student.email }}</li>
+            <li> Phone: {{ student.phone }}</li>
+            <li> Class Teacher : {{ student.classteacher }}</li>
+            <li> Join Date : {{ student.admissionDate |date('Y-m-d')}}</li>
+            </ul>
+          <div class="studentphoto">
+       
+       {{student.name}}
+        </div>
+          {% else %}
+        </div>
+
+      </div>
+    
+      <a href="{{ path('app_login') }}" class="btn btn-info">
+        You need to login to see the list 😜😜 >></a
+      >
+       {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

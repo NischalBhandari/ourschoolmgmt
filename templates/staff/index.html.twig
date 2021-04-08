@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %} 
+{% block body %}
+<div class="container content">
+  <div class="row scroller ">
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="col-md-12 searchholder" >
+            {{ form_start(form) }}
+          <div class="form_group">
+            <div class="col-md-12 mb-3">
+              {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+          </div>
+              <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
+              <button type="submit" class="btn btn-primary">
+                <i class="fa fa-btn fa-user"></i> Search 
+              </button>
+            </div>
+   {{ form_end(form) }}
+  </div>
+{% endif %}
+    <div class="col-md-12">
+     {% set error='' %}
+      <div class="card bg-light mb-3 mt-3 encompass">
+        <div class="card-body" style="overflow:auto">
+          <div class="card-header ">List of Staff {{ pagination.getTotalItemCount }}</div>
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+          <table class="table">
+            <tr>
+              <th>id</th>
+              <th>name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Delete</th>
+              <th>Edit</th>
+            </tr>
+            {% for key, item in pagination %}
+            <tr>
+              <td>{{ item.staffId }}</td>
+              <td><a class="nav-link" href="{{path('getstaff',{id:item.id}) }}">{{ item.name }}</td>
+              <td>{{ item.email }}</td>
+              <td>{{ item.phone }}</td>
+              <td><a class="nav-link" href="{% if  is_granted('ROLE_ADMIN') %} {{path('delstaff',{id:item.id}) }} {% else %} {% set error = 'need to login as admin for delete and edit ' %}  {% endif %} ">Delete</a></td>
+              <td><a class="nav-link" href="{% if  is_granted('ROLE_ADMIN') %} {{path('editstaff',{id:item.id}) }} {% else %} {% set error = 'need to login as admin for delete and edit ' %}  {% endif %} ">Edit</a></td> 
+            </tr>
+            {% endfor %}
+          </table>
+          {{ knp_pagination_render(pagination) }}
+          {{ error }}
+          {% else %}
+        </div>
+      </div>
+      <div>
+      <span>You need to be logged in for this content</span>
+      </div>
+      <a href="{{ path('app_login') }}" class="btn btn-primary">
+         Sign In</a
+      >
+       {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

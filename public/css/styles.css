@@ -1,0 +1,142 @@
+/* The side navigation menu */
+.sidebar {
+  margin: 0;
+  padding: 0;
+  width: 20%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+/*added by me */
+.scroller{
+	overflow:auto;
+}
+
+.encompass{
+	width: auto;
+}
+
+.widther{
+  width:100%;
+}
+.sidebar ul {
+list-style-type: none;
+padding-left:0px;
+
+}
+.pagination{
+  float:right;
+}
+
+.pagination .current, .page, .next, .last{
+  margin-left:2px;
+  border:transparent;
+
+}
+.pagination .current{
+  background-color:grey;
+}
+.pagination .current a , .page a , .next a, .last a{
+  color: blue;
+}
+.profile{
+  
+  margin-top:30px;
+}
+.profile li{
+  list-style: none;
+  line-height:40px;
+  font-weight: bold;
+}
+
+.studentphoto{
+float:right;
+  height:200px;
+  width:200px;
+  background-color:green;
+}
+.left{
+  float:left;
+}
+
+
+ /* Style the search box inside the navigation bar */
+.searchholder input[type=search] {
+  width:80%;
+
+
+  padding: 6px;
+  border: 1px ridge blue;
+  border-radius: 4px;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+  box-sizing: border-box;
+
+}
+.searchholder{
+    margin:auto;
+}
+/* Sidebar links */
+.sidebar a {
+  display: block;
+  color: black;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Active/current link */
+.sidebar li.active {
+  background-color: #5184a2;
+  color: white;
+}
+.sidebar li.active a {
+  background-color: #5184a2;
+  color: white;
+}
+
+/* Links on mouse-over */
+.sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+div.content {
+  margin-left: 20%;
+  padding: 1px 16px;
+  height: 1000px;
+  width:80%;
+}
+
+/* On screens that are less than 700px wide, make the sidebar into a topbar */
+@media screen and (max-width: 700px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  div.content {
+  	width:100%;
+  	margin:auto;
+}
+  .sidebar a {float: left;}
+  div.content {margin-left: 0;}
+
+
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .sidebar a {
+    text-align: center;
+    float: none;
+  }
+}
+
+@media (min-width: 768px){
+.col-md-8 {
+max-width:100%;
+}
+}

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-
+use App\Entity\Staff;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -57,7 +57,23 @@ class Student
      * @ORM\Column(type="string")
      */
     private $password;
+    /**
+     * Many features have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="App\Entity\Staff", inversedBy="pupils")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $classteacher;
+    public function getClassteacher(): ?Staff
+    {
+        return $this->classteacher;
+    }
 
+    public function setClassteacher(?Staff $classteacher): self
+    {
+        $this->classteacher = $classteacher;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -162,4 +178,10 @@ class Student
         return $this;
     }
 
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->name;
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 }

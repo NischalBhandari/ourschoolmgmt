@@ -1,13 +1,12 @@
 {# templates/registration/index.html.twig #} {% extends 'base.html.twig' %} {%
 block body %}
-<div class="container content">
+<div class="container">
   <div class="row">
-    
-    <div class="col-md-12">
-      <div class="card bg-light mb-3 mt-3">
+  {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="col-md-10 ml-md-auto">
+      <div class="card bg-light mb-3 mt-5" style="width: 800px">
         <div class="card-body">
-          <div class="card-header mb-3">Add New Student</div>
-          {% if is_granted('ROLE_ADMIN') %}
+          <div class="card-header mb-3">Edit Student</div>
           {{ form_start(form) }}
           <div class="form_group">
             <div class="col-md-12 mb-3">
@@ -33,12 +32,6 @@ block body %}
           </div>
           <div class="form_group">
             <div class="col-md-12 mb-3">
-              {{ form_row(form.classteacher, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
               {{ form_row(form.admission_date, {'attr': {'class':
               'form-control'}}) }}
             </div>
@@ -49,48 +42,43 @@ block body %}
               'form-control'}}) }}
             </div>
           </div>
+            <div class="form_group">
+            <div class="col-md-12 mb-3">
+              {{ form_row(form.classteacher, {'attr': {'class':
+              'form-control'}}) }}
+            </div>
+          </div>
           <div class="form_group">
             <div class="col-md-12 mb-3">
               {{ form_row(form.phone, {'attr': {'class':
               'form-control'}}) }}
             </div>
           </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
-              {{ form_row(form.password.first, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
-          <div class="form_group">
-            <div class="col-md-12 mb-3">
-              {{ form_row(form.password.second, {'attr': {'class':
-              'form-control'}}) }}
-            </div>
-          </div>
           <div class="form-group">
             <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
               <button type="submit" class="btn btn-primary">
-                <i class="fa fa-btn fa-user"></i> Register
+                <i class="fa fa-btn fa-user"></i> Edit
               </button>
+           <button  class="btn btn-Danger">
+              <a href="{{ path('liststudent') }}" class="fa fa-btn fa-user">Cancel</a>
+            </button>
+
             </div>
           </div>
           {{ form_end(form) }}
+
         </div>
          {% else %}
-
       </div>
-
     </div>
-                          <div>
-      <span>You need to be logged in as Admin for this</span>
+  </div>
+        <div>
+      <span>You need to be logged in for this content</span>
       </div>
       <a href="{{ path('app_login') }}" class="btn btn-primary">
-         Sign In </a
+         Sign Up >></a
       >
 
        {% endif %}
-  </div>
-  </div>
-
 </div>
 {% endblock %}
