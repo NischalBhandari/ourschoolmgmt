@@ -7,6 +7,7 @@ use App\Form\StudentType;
 use App\Form\StudentEditType;
 use App\Form\SearchingType;
 use App\Entity\Staff;
+use Gedmo\Sluggable\Util\Urlizer;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -51,7 +52,19 @@ class StudentController extends AbstractController
     	$form = $this->createForm(StudentType::class,$student);
     	$form->handleRequest($request);
     	if($form->isSubmitted() && $form->isValid()){
-    		            // Encode the new users password
+
+//process the image given by the user         
+        $uploadedFile = $form['headshot']->getData();
+        $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+        $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+        $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+        $student->setHeadshot($newFilename);
+        
+// Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $student->getPassword()));
            $user->setEmail($student->getEmail());
            $user->setName($student->getName());

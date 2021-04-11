@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StaffType extends AbstractType
@@ -23,6 +24,7 @@ class StaffType extends AbstractType
             ->add('email', EmailType::class)
             ->add('address', TextType::class)
             ->add('phone',NumberType::class)
+            ->add('headshot', FileType::class,array('data_class' => null))
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],

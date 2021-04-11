@@ -13,9 +13,17 @@ class DashboardController extends AbstractController
      * @Route("/dashboard", name="dashboard")
      */
     public function index(Request $request)
-    { 
-    	return $this->render('dashboard/index.html.twig',[
-            
+    { $staff = $this->getDoctrine()
+                    ->getRepository(Staff::class)
+                    ->findAll();
+      $student = $this->getDoctrine()
+                    ->getRepository(Student::class)
+                    ->findAll();
+      return $this->render('dashboard/index.html.twig',[
+            'staff' => $staff,
+            'student' => $student,
+            'student_count'=>sizeof($student),
+            'staff_count'=>sizeof($staff),
         ]);
     }
 

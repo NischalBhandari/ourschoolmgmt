@@ -4,8 +4,11 @@ namespace App\Entity;
 use App\Entity\Student;
 use App\Repository\StaffRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * @ORM\Entity(repositoryClass=StaffRepository::class)
  */
@@ -55,6 +58,23 @@ class Staff
      * @ORM\OneToMany(targetEntity="App\Entity\Student", mappedBy="classteacher")
      */
     private $pupils;
+
+    /** @ORM\Column(type="string")
+      * @Assert\NotBlank(message="Please, upload the photo.") 
+      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" }) 
+   */ 
+    private $headshot;
+
+    public function setHeadshot( string $file)
+    {
+        $this->headshot = $file;
+    }
+
+    public function getHeadshot()
+    {
+        return $this->headshot;
+    }
+    
 
     public function __construct()
     {
@@ -152,5 +172,27 @@ class Staff
         return $this->name;
         // to show the id of the Category in the select
         // return $this->id;
+    }
+
+    public function addPupil(Student $pupil): self
+    {
+        if (!$this->pupils->contains($pupil)) {
+            $this->pupils[] = $pupil;
+            $pupil->setClassteacher($this);
+        }
+
+        return $this;
+    }
+
+    public function removePupil(Student $pupil): self
+    {
+        if ($this->pupils->removeElement($pupil)) {
+            // set the owning side to null (unless already changed)
+            if ($pupil->getClassteacher() === $this) {
+                $pupil->setClassteacher(null);
+            }
+        }
+
+        return $this;
     }
 }

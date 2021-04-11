@@ -4,7 +4,17 @@
 
 {% block body %}
 <div class="container content">
-	<span id="summer"></span>
+<div class="row">
+<div class="count student">
+<span>No of students in our School are : {{student_count}} </span>
+</div>
+<div class="count staff">
+<span>No of staff in our School are : {{staff_count}} </span>
+</div>
+</div>
 </div>
 
+{% endblock %}
+{% block javascripts %}
+   <script src={{ asset('js/script.js')}}></script>
 {% endblock %}

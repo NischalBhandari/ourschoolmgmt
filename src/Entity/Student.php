@@ -4,12 +4,16 @@ namespace App\Entity;
 use App\Entity\Staff;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 /**
  * @ORM\Entity(repositoryClass=StudentRepository::class)
  */
 class Student
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -36,7 +40,6 @@ class Student
      * @ORM\Column(type="string", length=10)
      */
     private $section;
-
     /**
      * @ORM\Column(type="date")
      */
@@ -63,6 +66,23 @@ class Student
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $classteacher;
+
+   /** @ORM\Column(type="string")
+      * @Assert\NotBlank(message="Please, upload the photo.") 
+      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" }) 
+   */ 
+    private $headshot;
+
+    public function setHeadshot( string $file)
+    {
+        $this->headshot = $file;
+    }
+
+    public function getHeadshot()
+    {
+        return $this->headshot;
+    }
+    
     public function getClassteacher(): ?Staff
     {
         return $this->classteacher;
@@ -74,7 +94,16 @@ class Student
 
         return $this;
     }
+/*    public function setProfilepicture(File $file = null)
+    {
+        $this->headshot = $file;
+    }
 
+    public function getProfilepicture()
+    {
+        return $this->headshot;
+    }
+*/
     public function getId(): ?int
     {
         return $this->id;

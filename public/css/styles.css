@@ -56,9 +56,33 @@ float:right;
   width:200px;
   background-color:green;
 }
+.headshot{
+  height:200px;
+  width:200px;
+}
 .left{
   float:left;
 }
+.count{
+  width:100%;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  color:white;
+  text-align: center;
+}
+
+.student{
+  background-color: green;
+  opacity: 0.3;
+}
+.staff{
+  background-color: blue;
+  opacity: 0.3;
+}
+
+
+
+
 
 
  /* Style the search box inside the navigation bar */
