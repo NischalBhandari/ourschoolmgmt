@@ -36,7 +36,6 @@ class StudentType extends AbstractType
                 'class'=>Staff::class,
             ])
             ->add('parent',TextType::class)
-            ->add('headshot', FileType::class,array('data_class' => null))
             ->add('phone',NumberType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,

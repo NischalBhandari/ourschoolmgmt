@@ -67,21 +67,7 @@ class Student
      */
     private $classteacher;
 
-   /** @ORM\Column(type="string")
-      * @Assert\NotBlank(message="Please, upload the photo.") 
-      * @Assert\File(mimeTypes={ "image/png", "image/jpeg" }) 
-   */ 
-    private $headshot;
 
-    public function setHeadshot( string $file)
-    {
-        $this->headshot = $file;
-    }
-
-    public function getHeadshot()
-    {
-        return $this->headshot;
-    }
     
     public function getClassteacher(): ?Staff
     {

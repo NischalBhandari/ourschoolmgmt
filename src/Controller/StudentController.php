@@ -52,17 +52,6 @@ class StudentController extends AbstractController
     	$form = $this->createForm(StudentType::class,$student);
     	$form->handleRequest($request);
     	if($form->isSubmitted() && $form->isValid()){
-
-//process the image given by the user         
-        $uploadedFile = $form['headshot']->getData();
-        $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
-        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-        $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
-        $student->setHeadshot($newFilename);
         
 // Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $student->getPassword()));
@@ -204,6 +193,9 @@ class StudentController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            //process the image given by the user  
+
+
                         // Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $student->getPassword()));
            $user->setEmail($student->getEmail());

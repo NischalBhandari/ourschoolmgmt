@@ -79,16 +79,6 @@ class StaffController extends AbstractController
     	$form = $this->createForm(StaffType::class,$staff);
     	$form->handleRequest($request);
     	if($form->isSubmitted() && $form->isValid()){
-            //process the image given by the user         
-        $uploadedFile = $form['headshot']->getData();
-        $destination = $this->getParameter('kernel.project_dir').'/public/uploads/staff';
-        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $originalFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
-        $uploadedFile->move(
-                $destination,
-                $newFilename
-            );
-        $staff->setHeadshot($newFilename);
 
     		            // Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $staff->getPassword()));
@@ -165,7 +155,7 @@ class StaffController extends AbstractController
              $um = $this->getDoctrine()->getManager();
              $um->persist($user);
              $um->flush();
-            return $this->redirectToRoute('liststaff');
+            return $this->redirectToRoute('staff');
         }
         return $this->render('staff/edit.html.twig',[
             'form' => $form->createView(),

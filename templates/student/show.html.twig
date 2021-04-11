@@ -15,10 +15,6 @@
             <li> Class Teacher : {{ student.classteacher }}</li>
             <li> Join Date : {{ student.admissionDate |date('Y-m-d')}}</li>
             </ul>
-          <div class="studentphoto">
-       
-       <image class="headshot" src={{ asset('uploads/' ~ student.headshot) }} >
-        </div>
           {% else %}
         </div>
 

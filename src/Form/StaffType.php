@@ -24,7 +24,6 @@ class StaffType extends AbstractType
             ->add('email', EmailType::class)
             ->add('address', TextType::class)
             ->add('phone',NumberType::class)
-            ->add('headshot', FileType::class,array('data_class' => null))
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
