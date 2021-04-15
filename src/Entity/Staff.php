@@ -60,6 +60,11 @@ class Staff
     private $pupils;
 
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $brochureFilename;
+
     
 
     public function __construct()
@@ -80,6 +85,19 @@ class Staff
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    
+    public function getBrochureFilename()
+    {
+        return $this->brochureFilename;
+    }
+
+    public function setBrochureFilename($brochureFilename)
+    {
+        $this->brochureFilename = $brochureFilename;
+
+        return $this;
     }
 
     public function getStaffId(): ?int

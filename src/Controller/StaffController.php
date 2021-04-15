@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Service\FileUploader;
 use App\Entity\Staff;
 use App\Entity\User;
 use App\Form\StaffType;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\createNotFoundException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class StaffController extends AbstractController
@@ -72,7 +74,7 @@ class StaffController extends AbstractController
         /**
      * @Route("/newstaff", name="newstaff")
      */
-    public function registerNew(Request $request)
+    public function registerNew(Request $request, FileUploader $fileUploader)
     {
     	$staff = new Staff();
     	$user = new User();
@@ -80,7 +82,16 @@ class StaffController extends AbstractController
     	$form->handleRequest($request);
     	if($form->isSubmitted() && $form->isValid()){
 
-    		            // Encode the new users password
+
+            //This is the code to handle files uploaded by the user 
+            $citizenshipFile= $form->get('citizenship')->getData();
+            if($citizenshipFile){
+                $citizenshipFileName = $fileUploader->upload($citizenshipFile);
+                $staff->setBrochureFilename($citizenshipFileName);
+
+            }
+
+    		// Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $staff->getPassword()));
            $user->setEmail($staff->getEmail());
            $user->setName($staff->getName());
@@ -127,24 +138,32 @@ class StaffController extends AbstractController
      /**
     * @Route("/editstaff/{id}",name="editstaff")
     */
-    public function editStaff(int $id,request $request): Response
+    public function editStaff(int $id,request $request,FileUploader $fileUploader): Response
     {
         $em = $this->getDoctrine()->getManager();
         $um = $this->getDoctrine()->getManager();
         $staff = $em ->getRepository(Staff::class)->find($id);
-
         $user = $um->getRepository(User::class)->findOneBy(array('email'=>$staff->getEmail()));
-        $form = $this->createForm(StaffEditType::class,$staff);
+    // StaffEditType::class is used to get Fully Qualified Class Name App\Form\StaffEditType
+        $form = $this->createForm(StaffEditType::class,$staff,[
+            'label'=>$staff->getBrochureFilename(),
+        ]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
 
 
-                        // Encode the new users password
+         // Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $staff->getPassword()));
            $user->setEmail($staff->getEmail());
            $user->setName($staff->getName());
 
+           $citizenshipFile=$form->get('citizenship')->getData();
+           if($citizenshipFile){
+            //if the new citizenship is uploaded then use this condition
+                 $citizenshipFileName = $fileUploader->upload($citizenshipFile);
+                 $staff->setBrochureFilename($citizenshipFileName);
+            }
 
             // Set their role
             $user->setRoles(['ROLE_ADMIN']);

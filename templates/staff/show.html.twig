@@ -12,6 +12,11 @@
             <li> Staff Id : {{ staff.staffId }}</li>
             <li class ="bold"> Email: {{ staff.email }}</li>
             <li> Phone: {{ staff.phone }}</li>
+            {% if staff.brochureFilename %}
+            <li><a href="{{ asset('uploads/citizenships/' ~ staff.brochureFilename) }}" style="color:red">View Citizenship (PDF)</a></li>
+            {% else %}
+              <li>No Citizenship Uploaded</li>
+            {% endif %}
             </ul>
           {% else %}
         </div>

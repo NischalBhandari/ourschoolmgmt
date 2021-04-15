@@ -17,6 +17,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
+
 
 class StudentEditType extends AbstractType
 {
@@ -32,6 +34,24 @@ class StudentEditType extends AbstractType
             ])
             ->add('classteacher', EntityType::class,[
                 'class'=>Staff::class,
+            ])
+            ->add('studentphoto',FileType::class,[
+                'label'=>'Jpeg/PNG photo',
+                'mapped'=>false,
+                'required'=>false,
+                'constraints' => [
+                    new File([
+                        'maxSize'=>'1024k',
+                        'mimeTypes'=>[
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid picture',
+
+                    ])
+                ],
+
+
             ])
             ->add('parent',TextType::class)
             ->add('phone',NumberType::class)

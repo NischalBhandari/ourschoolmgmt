@@ -68,6 +68,21 @@ class Student
     private $classteacher;
 
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $photoFilename;
+
+
+    public function getPhotoFilename(){
+        return $this->photoFilename;
+    }
+
+    public function setPhotoFilename($photoname){
+        $this->photoFilename=$photoname;
+        return $this;
+    }
+
     
     public function getClassteacher(): ?Staff
     {

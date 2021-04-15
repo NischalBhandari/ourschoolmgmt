@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use App\Service\PhotoUploader;
 use App\Entity\Student;
 use App\Entity\User;
 use App\Form\StudentType;
@@ -42,7 +43,7 @@ class StudentController extends AbstractController
     /**
      * @Route("/newstudent", name="newstudent")
      */
-    public function registerNew(Request $request)
+    public function registerNew(Request $request, PhotoUploader $photoUploader)
     {
     	$student = new Student();
     	$user = new User();
@@ -52,8 +53,15 @@ class StudentController extends AbstractController
     	$form = $this->createForm(StudentType::class,$student);
     	$form->handleRequest($request);
     	if($form->isSubmitted() && $form->isValid()){
+
+            //do this if an image is uploaded
+            $photoFile=$form->get('studentphoto')->getData();
+            if($photoFile){
+                $photoFileName=$photoUploader->upload($photoFile);
+                $student->setPhotoFilename($photoFileName);
+            }
         
-// Encode the new users password
+            // Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $student->getPassword()));
            $user->setEmail($student->getEmail());
            $user->setName($student->getName());
@@ -183,7 +191,7 @@ class StudentController extends AbstractController
     /**
     * @Route("/editstudent/{id}",name="editstudent")
     */
-    public function editStudent(int $id,request $request): Response
+    public function editStudent(int $id,request $request,PhotoUploader $photoUploader): Response
     {
         $em = $this->getDoctrine()->getManager();
         $um = $this->getDoctrine()->getManager();
@@ -193,8 +201,13 @@ class StudentController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            //process the image given by the user  
-
+            //do this if an image is uploaded
+            $photoFile=$form->get('studentphoto')->getData();
+            if($photoFile){
+                $photoFileName=$photoUploader->upload($photoFile);
+                $student->setPhotoFilename($photoFileName);
+            }
+        
 
                         // Encode the new users password
            $user->setPassword($this->passwordEncoder->encodePassword($user, $student->getPassword()));

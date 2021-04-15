@@ -15,6 +15,14 @@
             <li> Class Teacher : {{ student.classteacher }}</li>
             <li> Join Date : {{ student.admissionDate |date('Y-m-d')}}</li>
             </ul>
+            <div  class ="studentphoto ">
+            {% if student.photoFilename %}
+            <img class="headshot" src="{{ asset('uploads/photos/' ~ student.photoFilename) }}" style="color:red"/>
+            {% else %}
+              <li>No Photo Uploaded</li>
+            {% endif %}
+            </div>
+
           {% else %}
         </div>
 

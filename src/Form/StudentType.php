@@ -17,6 +17,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Constraints\File;
+
 
 class StudentType extends AbstractType
 {
@@ -37,6 +39,24 @@ class StudentType extends AbstractType
             ])
             ->add('parent',TextType::class)
             ->add('phone',NumberType::class)
+            ->add('studentphoto',FileType::class,[
+                'label'=>'Jpeg/PNG photo',
+                'mapped'=>false,
+                'required'=>false,
+                'constraints' => [
+                    new File([
+                        'maxSize'=>'1024k',
+                        'mimeTypes'=>[
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload a valid picture',
+
+                    ])
+                ],
+
+
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
