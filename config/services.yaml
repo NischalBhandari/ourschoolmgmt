@@ -38,3 +38,7 @@ services:
     App\Service\PhotoUploader:
         arguments:
             $targetDirectory: '%photo_directory%'
+
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }

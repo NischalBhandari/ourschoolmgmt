@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %} 
+{% block body %}
+<div class="container content ">
+  <div class="row scroller ">
+    <div class="col-md-12 ">
+    {% set error='' %}
+      <div class="card bg-light mb-3 mt-3 encompass">
+        <div class="card-body " style="overflow:auto">
+          <div class="card-header">List of Class Schedule {{ pagination.getTotalItemCount }}</div>
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+          <table class="table" >
+            <tr>
+              <th>Class</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Subject</th>
+            </tr>
+            {% for key,item in pagination %}
+            <tr>
+              <td>{{ item.class }}</td>
+              <td>{{ item.starttime|date('H:i A') }}</td>
+              <td>{{ item.endtime |date('H:i A')}}</td>
+              <td>{{ item.subject }}</td>
+            </tr>
+            {% endfor %}
+            </table>
+           {{ knp_pagination_render(pagination) }}
+           {{ error }}
+          {% else %}
+        </div>
+      </div>
+      <div>
+      <span>You need to be logged in for this content</span>
+      </div>
+      <a href="{{ path('app_login') }}" class="btn btn-primary">
+         Sign In</a
+      >
+
+       {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

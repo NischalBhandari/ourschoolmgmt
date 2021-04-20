@@ -12,6 +12,9 @@
 .scroller{
 	overflow:auto;
 }
+.error{
+  color: red;
+}
 
 .encompass{
 	width: auto;

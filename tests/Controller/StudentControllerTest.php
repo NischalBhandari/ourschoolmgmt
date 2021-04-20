@@ -9,9 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class StudentControllerTest extends WebTestCase{
 	public function testShowStudent()
 	{
-		/*$client= static::createClient();
+		$client= static::createClient();
 		$client->request('GET','/student/10');
 		$this->assertEquals(200, $client->getResponse()->getStatusCode());
-*/
+
 	}
 }

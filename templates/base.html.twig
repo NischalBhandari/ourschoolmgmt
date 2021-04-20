@@ -29,6 +29,8 @@
   <li class="{% if app.request.attributes.get('_route') == 'staff' %} active{% endif %}" ><a  href="{{ path('staff') }}">Staff</a></li>
   <li class="{% if app.request.attributes.get('_route') == 'newstaff' %} active{% endif %}" ><a  href="{{ path('newstaff') }}">Add New Staff</a></li>
   <li class="{% if app.request.attributes.get('_route') == 'app_logout' %} active{% endif %}" ><a  href="{{ path('app_logout') }}">Logout</a></li>
+  <li class="{% if app.request.attributes.get('_route') == 'newschedule' %} active{% endif %}" ><a  href="{{ path('newschedule') }}">Add New Class</a></li>
+  <li class="{% if app.request.attributes.get('_route') == 'listclass' %} active{% endif %}" ><a  href="{{ path('listclass') }}">Show Classes </a></li>
 </ul>
 
 </div>
