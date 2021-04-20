@@ -53,7 +53,6 @@ class StudentController extends AbstractController
     	$form = $this->createForm(StudentType::class,$student);
     	$form->handleRequest($request);
     	if($form->isSubmitted() && $form->isValid()){
-
             //do this if an image is uploaded
             $photoFile=$form->get('studentphoto')->getData();
             if($photoFile){
@@ -95,6 +94,7 @@ class StudentController extends AbstractController
                     ->getRepository(Student::class)
                     ->find($id);
 
+        // this creates an exception for the ErrorController to handle
         if(!$student){
             throw $this->createNotFoundException(
                 "No product found for id ".$id
@@ -196,6 +196,11 @@ class StudentController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $um = $this->getDoctrine()->getManager();
         $student = $em ->getRepository(Student::class)->find($id);
+        if(!$student){
+            throw $this->createNotFoundException(
+                "This student is non existent for id ". $id
+            );
+        }
         $user = $um->getRepository(User::class)->findOneBy(array('email'=>$student->getEmail()));
         $form = $this->createForm(StudentEditType::class,$student);
         $form->handleRequest($request);
